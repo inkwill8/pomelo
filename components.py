@@ -18,9 +18,11 @@ class ComponentType(Enum):
 
 
 class Component:
-    def __init__(self, name: str, url: str, type: ComponentType):
+    def __init__(self, name: str, amzn_url: str, newegg_url: str, bb_url: str, type: ComponentType):
         self.name = name
-        self.url = url
+        self.amzn_url = amzn_url
+        self.newegg_url = newegg_url
+        self.bb_url = bb_url
         self.type = type
 
         # prices are set to none initially and will be updated later on after web scraping
