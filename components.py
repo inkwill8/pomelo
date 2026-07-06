@@ -18,7 +18,14 @@ class ComponentType(Enum):
 
 
 class Component:
-    def __init__(self, name: str, amzn_url: str, newegg_url: str, bb_url: str, type: ComponentType):
+    def __init__(
+        self,
+        name: str,
+        amzn_url: str,
+        newegg_url: str,
+        bb_url: str,
+        type: ComponentType,
+    ):
         self.name = name
         self.amzn_url = amzn_url
         self.newegg_url = newegg_url
@@ -44,7 +51,6 @@ class Component:
     def get_newegg_price(self, url, headers):
         # make the http request and print status
         response = requests.get(url, headers=headers, timeout=10)
-        print(response.status_code)
 
         # pass the content to bs to parse
         soup = bs(response.text, "html.parser")
@@ -55,6 +61,23 @@ class Component:
             print("price div not found")
 
         match = re.search(r"\d+\.\d+", span_text)
+        if match:
+            price = float(match.group())
+        return price
+
+    def get_bb_price(self, url, headers):
+        response = requests.get(url, headers=headers, timeout=10)
+        soup = bs(response.text, "html.parser")
+        span = soup.find(
+            "span",
+            class_="font-sans text-default text-style-body-md-400 font-500 text-7 leading-7",
+        )
+        if span:
+            span_text = span.get_text()
+        else:
+            print("price span not found")
+
+        match = re.search(r"\d+\.d+", span_text)
         if match:
             price = float(match.group())
         return price
