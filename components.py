@@ -23,7 +23,6 @@ class Component:
         self.amzn_price = None
         self.newegg_price = None
         self.bb_price = None
-        self.amzn_price = None
 
     def set_amzn_price(self, price):
         self.amzn_price = price
