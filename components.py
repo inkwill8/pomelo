@@ -16,6 +16,10 @@ class ComponentType(Enum):
     hdd = "HDD"
     fan = "Fan"
 
+    def type_to_str(self, type):
+        if type is self.cpu:
+            return "CPU"
+
 
 class Component:
     def __init__(self, name: str, url: str, type: ComponentType):
